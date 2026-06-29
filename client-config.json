@@ -1,0 +1,19 @@
+{
+  "serverHost": "az-server.tailf5cd20.ts.net",
+  "excelShareName": "ExcelFolderD",
+  "driveLetter": "Z",
+  "rdpApps": [
+    {
+      "name": "TallyPrime",
+      "remoteApplicationName": "TallyPrime",
+      "remoteApplicationProgram": "||TallyPrime",
+      "fileName": "TallyPrime.rdp"
+    },
+    {
+      "name": "TallyPrime1",
+      "remoteApplicationName": "TallyPrime1",
+      "remoteApplicationProgram": "||TallyPrime1",
+      "fileName": "TallyPrime1.rdp"
+    }
+  ]
+}
