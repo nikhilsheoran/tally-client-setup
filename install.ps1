@@ -146,6 +146,7 @@ function Select-RdpApps {
         Write-Host ("{0}. {1}" -f ($i + 1), $Apps[$i].name)
     }
     Write-Host ("{0}. Both" -f ($Apps.Count + 1))
+    Write-Host ("{0}. Skip Tally shortcuts" -f ($Apps.Count + 2))
 
     while ($true) {
         $answer = (Read-Host "Enter choice number").Trim()
@@ -156,6 +157,9 @@ function Select-RdpApps {
             }
             if ($choice -eq ($Apps.Count + 1)) {
                 return @($Apps)
+            }
+            if ($choice -eq ($Apps.Count + 2)) {
+                return @()
             }
         }
         Write-Host "Please enter a valid choice." -ForegroundColor Yellow
@@ -268,8 +272,13 @@ $tailscale = Install-TailscaleIfMissing
 Ensure-TailscaleConnected -TailscaleExe $tailscale -ServerHost $serverHost
 
 $selectedApps = Select-RdpApps -Apps @($config.rdpApps)
-foreach ($app in $selectedApps) {
-    Write-RdpShortcut -App $app -ServerHost $serverHost -Desktop $desktop
+if ($selectedApps.Count -eq 0) {
+    Write-Host "Skipping Tally shortcut setup."
+}
+else {
+    foreach ($app in $selectedApps) {
+        Write-RdpShortcut -App $app -ServerHost $serverHost -Desktop $desktop
+    }
 }
 
 Save-WindowsCredential -ServerHost $serverHost
